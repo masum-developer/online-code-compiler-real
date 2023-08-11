@@ -3,8 +3,8 @@
 const Home = () => {
     return (
         <div>
-            <div className="w-full h-10 bg-slate-800">
-                    <h2 className="text-3xl text-white text-center">Online Code Compiler and Real Time Editor</h2>
+            <div className="w-full h-20 md:h-10 bg-slate-800">
+                    <h2 className="text-xl md:text-3xl text-white text-center">Online Code Compiler and Real Time Editor</h2>
             </div>
             <div className="text-center my-5">
                 <label htmlFor="language">Select Language</label>
@@ -18,7 +18,7 @@ const Home = () => {
                 
             </div>
             <div className="text-center">
-            <button className="btn bg-slate-900 my-3 text-white">Submit</button>
+            <button className="btn bg-slate-900 my-3 text-white hover:bg-slate-600">Submit</button>
             </div>
 <h4 className="ml-10">Output</h4>
             <div className="text-center">
