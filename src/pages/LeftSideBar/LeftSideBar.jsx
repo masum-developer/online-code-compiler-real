@@ -2,18 +2,23 @@
 
 const LeftSideBar = () => {
     return (
-        <div className="pl-5">
+        <div className="px-5">
             <div className="h-96">
-                <img title="Masum Billah" className="p-5 w-20 h-20 rounded-full" src="profileImge.jpg" alt="" />
-                <h2 className="text-white">Masum Billah</h2>
-                <img title="Masum Billah" className="p-5 w-20 h-20 rounded-full" src="male.png" alt="" />
-                <h2 className="text-white">John Doe</h2>
-                <img title="Masum Billah" className="p-5 w-20 h-20 rounded-full" src="female.png" alt="" />
-                <h2 className="text-white">Emy Jackson</h2>
+                
+                <h2 className="text-white">Hexa Coders707.3 </h2>
+                <hr className="w-full" />
+                <h4 className="text-error my-5">Connected</h4>
+                
                 
                 
             </div>
-            <button className="btn btn-success">Leave</button>
+            <div>
+            <button className="btn btn-success">Copy Room Id</button>
+            </div>
+            <div>
+            <button className="btn btn-success mt-3">Leave</button>  
+            </div>
+            
         </div>
     );
 };
