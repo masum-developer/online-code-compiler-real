@@ -8,7 +8,8 @@ import { Navigate, useLocation, useNavigate, useParams } from "react-router-dom"
 import { toast } from "react-hot-toast";
 
 const EditorPage = () => {
-    const socketRef = useRef(null);
+   const socketRef = useRef(null);
+   const codeRef = useRef(null);
    const location = useLocation();
    const {roomId} = useParams()
    const reactNavigator = useNavigate();
@@ -35,11 +36,44 @@ const EditorPage = () => {
                     console.log(`${username} joined`)
                 }
                 setClients(clients)
+                socketRef.current.emit(ACTIONS.SYNC_CODE,{
+                    code:codeRef.current,
+                    socketId,
+                });
+            })
+
+            //Listening for disconnect
+            socketRef.current.on(ACTIONS.DISCONNECTED,({socketId,username})=>{
+                toast.success(`${username} left the room`);
+                setClients((prev)=>{
+                    return prev.filter((client)=>client.socketId!=socketId)
+                })
             })
         }
 
         init();
+
+        //cleaning function
+        return () =>{
+            socketRef.current.disconnect();
+            socketRef.current.off(ACTIONS.JOINED);
+            socketRef.current.off(ACTIONS.DISCONNECTED);
+        }
     },[])
+
+    const copyRoomId = async () =>{
+        try{
+            await navigator.clipboard.writeText(roomId)
+            toast.success('Room Id has been copied to your clipboard');
+        }
+        catch(err){
+            toast.error('Could not copy the room Id');
+            console.error(err);
+        }
+    }
+    const leaveRoom = () =>{
+        reactNavigator('/');
+    }
     
     if(!location.state)
     {
@@ -64,16 +98,18 @@ const EditorPage = () => {
                 
             </div>
             <div>
-            <button className="btn btn-success">Copy Room Id</button>
+            <button onClick={copyRoomId} className="btn btn-success">Copy Room Id</button>
             </div>
             <div>
-            <button className="btn btn-success mt-3">Leave</button>  
+            <button onClick={leaveRoom} className="btn btn-success mt-3">Leave</button>  
             </div>
             
         </div>
             </div>
             <div className="min-h-screen w-[100%] md:w-[75%]">
-                <Editor></Editor>
+                <Editor socketRef={socketRef} roomId={roomId} onCodeChange={(code)=>{
+                    codeRef.current=code;
+                }}></Editor>
             </div>
 
         </div>

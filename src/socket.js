@@ -21,7 +21,7 @@ export const initSocket = async () => {
             timeout: 10000,
             transports: ['websocket'],
         };
-        const socket = io('https://online-code-compiler-server-masum-developer.vercel.app', options);
+        const socket = io('https://online-code-compiler-server.vercel.app', options);
         return socket;
     } catch (error) {
         console.error('Socket initialization error:', error);
